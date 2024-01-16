@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:replace="~{layout::layout(~{::title}, ~{::#content}, ~{})}">
+<head>
+    <meta charset="UTF-8">
+    <title>**카페 포인트 관리 시스템 :: 포인트 관리</title>
+</head>
+<body>
+    <div id="content">
+		<h3>전화번호 조회 (- 제외 )</h3>
+        <form th:action="@{/points}" method="post">
+            <input name="phone"></input>
+            <input type="submit" value="View">
+        </form>
+        <br/>
+        <div th:if="${points != null}">
+			<div style="display:flex">
+			<h3>전화번호 : </h3>
+            <h3 th:if="${points != null}" th:text="${points.phone}"></h3>
+			</div>
+            <div style="display:flex">
+            <h4>포인트 : </h4>
+            <h4 th:if="${points != null}" th:text="${points.point}"></h4>
+            </div>
+            <form th:action="@{/points/__${points.phone}__}" method="post">
+				<input type="number" value="point" name="point">
+				<input type="submit" value="변경">
+			</form>
+        </div>
+    </div>
+</body>
+</html>
